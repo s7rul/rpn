@@ -38,20 +38,28 @@ double chartoint(char charnumber){
 	}
 	return 99;
 }
+int leghtofnumber(char *charnumber){
 
-double stringtoint(char *charnumber){
-	//input char and returns int
-	
-	int n = 0;//numbers of digits in the number
+	printf("scanner function");
+
 	char scanner;
-	double y;
-	double output = 0;
+	int n = 0;
 
 	while (scanner != '\0'){
 		scanner = charnumber[n];
 		n++;
-		printf("scanner: %c", scanner);
 	}
+
+	return n;
+}
+
+double stringtoint(char *charnumber){
+	//input char and returns int
+	
+	//int n = leghtofnumber(charnumber);
+	int n = 3;
+	double y;
+	double output = 0;
 
 	printf("leaght of number: %d\n", n);
 
