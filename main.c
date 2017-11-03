@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-double chartoint(char charnumber){
+int chartoint(char charnumber){
 
 	switch (charnumber){
 		case '0':
@@ -41,13 +41,10 @@ double chartoint(char charnumber){
 }
 int leghtofnumber(char *charnumber){
 
-	char scanner;
+	char scanner = ' ';
 	int n = 0;
 
-	printf("while function");
-
 	while (scanner != '\0'){
-		printf("charnumber: %c\n", charnumber[n]);
 		scanner = charnumber[n];
 		n++;
 	}
@@ -55,11 +52,11 @@ int leghtofnumber(char *charnumber){
 	return n - 1;
 }
 
-double stringtoint(char *charnumber){
+int stringtoint(char *charnumber){
 	//input char and returns int
 	int n;
-	double y;
-	double output = 0;
+	int y;
+	int output = 0;
 
 	n = leghtofnumber(charnumber);
 
@@ -67,7 +64,7 @@ double stringtoint(char *charnumber){
 
 	for (int pos = 0; pos < n; pos++){
 		y = n - pos;
-		printf("%d", y);
+		printf("%d\n", y);
 		output =+ pow(10, y) * chartoint(charnumber[pos]); 
 	}
 	return output;
@@ -75,11 +72,12 @@ double stringtoint(char *charnumber){
 
 int countnumbers(char *argv[], int argc){
 	//count the amount of numbers
+	return 0;
 }
 
 int stackinit(char *argv[]){
 	//takes input and makes apropriate size stack
-	
+	return 0;
 }
 
 void printhelp(){
