@@ -1,4 +1,5 @@
-/* This program takes input at runtime and does apropriet calculation
+/* Made by Erik Serander
+ * This program takes input at runtime and does apropriet calculation
  * acording to reverce polish notation*/
 
 #include <stdio.h>
