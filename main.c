@@ -62,21 +62,12 @@ int stringtoint(char *charnumber){
 	int n;
 	int y;
 	int output = 0;
-	int digit = 0;
-	int faktor = 0;
 
 	n = leghtofnumber(charnumber) - 1;
 
-	printf("leaght of number: %d\n", n);
-
 	for (int pos = 0; pos <= n; pos++){
 		y = n - pos;
-		digit = chartoint(charnumber[pos]);
-		printf("exponent: %d digit: %d\n", y, digit);
-		faktor = pow(10, y);
-		printf("faktor: %d\n", faktor);
-		output += faktor * digit; 
-		printf("Output: %d\n",output);
+		output += pow(10, y) * chartoint(charnumber[pos]); 
 	}
 	return output;
 }
