@@ -8,36 +8,41 @@
 
 int chartoint(char charnumber){
 
+	int result = 0;
+
 	switch (charnumber){
 		case '0':
-			return 0;
+			result = 0;
 			break;
 		case '1':
-			return 1;
+			result = 1;
 			break;
 		case '2':
-			return 2;
+			result = 2;
 			break;
 		case '3':
-			return 3;
+			result = 3;
 			break;
 		case '4':
-			return 4;
+			result = 4;
+			break;
+		case '5':
+			result = 5;
 			break;
 		case '6':
-			return 6;
+			result = 6;
 			break;
 		case '7':
-			return 7;
+			result = 7;
 			break;
 		case '8':
-			return 8;
+			result = 8;
 			break;
 		case '9':
-			return 9;
+			result = 9;
 			break;
 	}
-	return 99;
+	return result;
 }
 int leghtofnumber(char *charnumber){
 
@@ -57,15 +62,21 @@ int stringtoint(char *charnumber){
 	int n;
 	int y;
 	int output = 0;
+	int digit = 0;
+	int faktor = 0;
 
-	n = leghtofnumber(charnumber);
+	n = leghtofnumber(charnumber) - 1;
 
 	printf("leaght of number: %d\n", n);
 
-	for (int pos = 0; pos < n; pos++){
+	for (int pos = 0; pos <= n; pos++){
 		y = n - pos;
-		printf("%d\n", y);
-		output =+ pow(10, y) * chartoint(charnumber[pos]); 
+		digit = chartoint(charnumber[pos]);
+		printf("exponent: %d digit: %d\n", y, digit);
+		faktor = pow(10, y);
+		printf("faktor: %d\n", faktor);
+		output += faktor * digit; 
+		printf("Output: %d\n",output);
 	}
 	return output;
 }
