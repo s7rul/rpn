@@ -2,9 +2,9 @@
  * This program takes input at runtime and does apropriet calculation
  * acording to reverce polish notation*/
 
+//functions declared in math.c
+
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 
 int chartoint(char charnumber){
 

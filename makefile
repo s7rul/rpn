@@ -1,2 +1,2 @@
-rpn: main.c
-	gcc main.c -lm -o rpn 
+rpn: main.c math.c
+	gcc main.c math.c -o rpn 
