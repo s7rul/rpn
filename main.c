@@ -3,6 +3,7 @@
  * acording to reverce polish notation*/
 
 //functions declared in math.c
+int mypow(int x,int y);
 
 #include <stdio.h>
 
@@ -67,7 +68,7 @@ int stringtoint(char *charnumber){
 
 	for (int pos = 0; pos <= n; pos++){
 		y = n - pos;
-		output += pow(10, y) * chartoint(charnumber[pos]); 
+		output += mypow(10, y) * chartoint(charnumber[pos]); 
 	}
 	return output;
 }

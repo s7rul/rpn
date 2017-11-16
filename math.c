@@ -18,19 +18,22 @@ int div(int x, int y){
 	return x / y;
 }
 
-int pow(int x, int y){
+int mypow(int x, int y){
 	int sum = 0;
 
 	if (y == 1){
-		return x;
+		sum = x;
 	}
 
-	if (y == 0){
-		return 1;
+	else if (y == 0){
+		sum = 1;
 	}
 
-	for (int n = 1; n < y; n++){
-		sum = sum * x;
+	else if (y > 1){
+		sum = x;
+		for (int n = 1; n < y; n++){
+			sum *= x;
+		}
 	}
 
 	return sum;
