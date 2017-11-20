@@ -6,10 +6,11 @@
 int mypow(int x,int y);
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int chartoint(char charnumber){
 
-	int result = 0;
+	int result = 99;
 
 	switch (charnumber){
 		case '0':
@@ -73,9 +74,30 @@ int stringtoint(char *charnumber){
 	return output;
 }
 
+int isnumber(char* input){//returns 1 for numbers and 0 for non numbers
+
+	int n = 0;
+
+	while (input[n] != '\0'){
+		if (chartoint(input[n]) == 99){
+			return 0;
+		}
+		n++;
+	}
+
+	return 1;
+}
+
 int countnumbers(char *argv[], int argc){
 	//count the amount of numbers
-	return 0;
+	
+	int count = 0;
+
+	for (int n = 1; n < argc; n++){
+		count += isnumber(argv[n]);
+	}
+
+	return count;
 }
 
 int stackinit(char *argv[]){
@@ -103,7 +125,7 @@ int main( int argc, char *argv[]){
 		printhelp();
 	}
 	else {
-		printf("number: %d\n",stringtoint(argv[1]));
+		printf("first number: %d\nnumber count: %d\n",stringtoint(argv[1]), countnumbers(argv, argc));
 	}
 
 	return 0;
