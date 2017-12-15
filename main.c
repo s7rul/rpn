@@ -8,7 +8,7 @@ int mypow(int x,int y);
 #include <stdio.h>
 #include <stdlib.h>
 
-int chartoint(char charnumber){
+int char_to_int(char charnumber){
 
 	int result = 99;
 
@@ -46,7 +46,7 @@ int chartoint(char charnumber){
 	}
 	return result;
 }
-int leghtofnumber(char *charnumber){
+int leght_of_number(char *charnumber){
 
 	char scanner = ' ';
 	int n = 0;
@@ -59,27 +59,27 @@ int leghtofnumber(char *charnumber){
 	return n - 1;
 }
 
-int stringtoint(char *charnumber){
+int string_to_int(char *charnumber){
 	//input char and returns int
 	int n;
 	int y;
 	int output = 0;
 
-	n = leghtofnumber(charnumber) - 1;
+	n = leght_of_number(charnumber) - 1;
 
 	for (int pos = 0; pos <= n; pos++){
 		y = n - pos;
-		output += mypow(10, y) * chartoint(charnumber[pos]); 
+		output += mypow(10, y) * char_to_int(charnumber[pos]); 
 	}
 	return output;
 }
 
-int isnumber(char* input){//returns 1 for numbers and 0 for non numbers
+int is_number(char* input){//returns 1 for numbers and 0 for non numbers
 
 	int n = 0;
 
 	while (input[n] != '\0'){
-		if (chartoint(input[n]) == 99){
+		if (char_to_int(input[n]) == 99){
 			return 0;
 		}
 		n++;
@@ -88,21 +88,38 @@ int isnumber(char* input){//returns 1 for numbers and 0 for non numbers
 	return 1;
 }
 
-int countnumbers(char *argv[], int argc){
+int count_numbers(char *argv[], int argc){
 	//count the amount of numbers
 	
 	int count = 0;
 
 	for (int n = 1; n < argc; n++){
-		count += isnumber(argv[n]);
+		count += is_number(argv[n]);
 	}
 
 	return count;
 }
 
-int stackinit(char *argv[]){
+int *stackinit_numbers(char *argv[], int argc){
 	//takes input and makes apropriate size stack
-	return 0;
+	
+	//initiering av stack for numbers
+	int *numberstack = malloc(count_numbers(argv, argc) * sizeof(int));
+
+	for (int n; n < argc; n++){
+		if (is_number(argv[n+1])){
+			numberstack[n] = string_to_int(argv[n+1]);
+		}
+	}
+
+	return numberstack;
+}
+
+void print_array(int *array, int size){
+	printf("print array\n");
+	for (int n = 0; n < size; n++){
+		printf("number %d: %d", n, array[n]);
+	}
 }
 
 void printhelp(){
@@ -118,14 +135,20 @@ void printhelp(){
 
 int main( int argc, char *argv[]){
 
+	int *numberstack;
+
 	printf("number of arguments: %d\n", argc);
 	printf("number (string): %s\n", argv[1]);
 
 	if (argv[1][0] == 'h'){
 		printhelp();
 	}
+
 	else {
-		printf("first number: %d\nnumber count: %d\n",stringtoint(argv[1]), countnumbers(argv, argc));
+		numberstack = stackinit_numbers(argv, argc);
+		printf("first number: %d\nnumber count: %d\n",string_to_int(argv[1]), count_numbers(argv, argc));
+		print_array(numberstack, count_numbers(argv, argc));
+		free(numberstack);
 	}
 
 	return 0;
