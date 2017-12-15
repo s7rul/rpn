@@ -7,6 +7,7 @@ int mypow(int x,int y);
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "stack.h"
 
 int char_to_int(char charnumber){
 
@@ -100,28 +101,6 @@ int count_numbers(char *argv[], int argc){
 	return count;
 }
 
-int *stackinit_numbers(char *argv[], int argc){
-	//takes input and makes apropriate size stack
-	
-	//initiering av stack for numbers
-	int *numberstack = malloc(count_numbers(argv, argc) * sizeof(int));
-
-	for (int n; n < argc; n++){
-		if (is_number(argv[n+1])){
-			numberstack[n] = string_to_int(argv[n+1]);
-		}
-	}
-
-	return numberstack;
-}
-
-void print_array(int *array, int size){
-	printf("print array\n");
-	for (int n = 0; n < size; n++){
-		printf("number %d: %d", n, array[n]);
-	}
-}
-
 void printhelp(){
 	printf("############## Help for rpn ##################\n");
 	printf("\n");
@@ -135,7 +114,7 @@ void printhelp(){
 
 int main( int argc, char *argv[]){
 
-	int *numberstack;
+	stackT numberstack;
 
 	printf("number of arguments: %d\n", argc);
 	printf("number (string): %s\n", argv[1]);
@@ -145,10 +124,11 @@ int main( int argc, char *argv[]){
 	}
 
 	else {
-		numberstack = stackinit_numbers(argv, argc);
 		printf("first number: %d\nnumber count: %d\n",string_to_int(argv[1]), count_numbers(argv, argc));
-		print_array(numberstack, count_numbers(argv, argc));
-		free(numberstack);
+		StackInit(&numberstack, count_numbers(argv, argc));
+		StackPush(&numberstack, 1);
+		printf("%d\n", StackPop(&numberstack));
+		StackDestroy(&numberstack);
 	}
 
 	return 0;

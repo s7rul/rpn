@@ -19,7 +19,7 @@
  * the stack.
  */
 
-typedef char stackElementT;
+typedef int stackElementT;
 
 /*
  * Type: stackT
