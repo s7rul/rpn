@@ -75,6 +75,34 @@ int string_to_int(char *charnumber){
 	return output;
 }
 
+int operand_to_int(char operand){
+	//returns
+	// error = 0
+	// + = 1
+	// * = 2
+	// - = 3
+	// / = 4
+
+	int result = 0;
+
+	switch (operand){
+		case '+':
+			result = 1;
+			break;
+		case 'x':
+			result = 2;
+			break;
+		case '-':
+			result = 3;
+			break;
+		case '/':
+			result = 4;
+			break;
+	}
+
+	return result;
+}
+
 int is_number(char* input){//returns 1 for numbers and 0 for non numbers
 
 	int n = 0;
@@ -101,6 +129,20 @@ int count_numbers(char *argv[], int argc){
 	return count;
 }
 
+int count_operands(char *argv[], int argc){
+	//count the amount of numbers
+	
+	int count = 0;
+
+	for (int n = 1; n < argc; n++){
+		if (operand_to_int(argv[n][0]) != 0){
+			count++;
+		}
+	}
+
+	return count;
+}
+
 void printhelp(){
 	printf("############## Help for rpn ##################\n");
 	printf("\n");
@@ -112,22 +154,45 @@ void printhelp(){
 	return;
 }
 
+void fill_numberstack(stackT *stack, int argc, char *argv[]){
+	//fill numberstack with numbers so the fist number is at the bottom
+	
+	for (int n = 1; n < argc; n++){
+		if (is_number(argv[n])){
+			StackPush(stack, string_to_int(argv[n]));
+		}
+	}
+}
+
+void fill_operatorstack(stackT *stack, int argc, char *argv[]){
+	
+	for (int n = argc - 1; n > 0; n--){
+		if (is_number(argv[n]) == 0){
+			StackPush(stack, operand_to_int(argv[n][0]));
+		}
+	}
+}
+
 int main( int argc, char *argv[]){
 
 	stackT numberstack;
-
-	printf("number of arguments: %d\n", argc);
-	printf("number (string): %s\n", argv[1]);
+	stackT operatorstack;
 
 	if (argv[1][0] == 'h'){
 		printhelp();
 	}
 
 	else {
-		printf("first number: %d\nnumber count: %d\n",string_to_int(argv[1]), count_numbers(argv, argc));
 		StackInit(&numberstack, count_numbers(argv, argc));
-		StackPush(&numberstack, 1);
-		printf("%d\n", StackPop(&numberstack));
+		StackInit(&operatorstack, count_operands(argv, argc));
+		fill_numberstack(&numberstack, argc, argv);
+		fill_operatorstack(&operatorstack, argc, argv);
+		for (int n = 0; n < numberstack.maxSize; n++){
+			printf("%d\n", StackPop(&numberstack));
+		}
+		for (int n = 0; n < operatorstack.maxSize; n++){
+			printf("%d\n", StackPop(&operatorstack));
+		}
 		StackDestroy(&numberstack);
 	}
 
