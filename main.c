@@ -173,10 +173,43 @@ void fill_operatorstack(stackT *stack, int argc, char *argv[]){
 	}
 }
 
+int prossesing(stackT *numberstack, stackT *operatorstack){
+	//prossesing the stacks to get an answer
+	int a = 0;
+	int b = 0;
+
+	for (int n = 0; n < operatorstack->maxSize; n++){
+		a = StackPop(numberstack);
+		b = StackPop(numberstack);
+
+		switch (StackPop(operatorstack)){
+			case 1:
+				printf("added\n");
+				StackPush(numberstack, a + b);
+				break;
+			case 2:
+				printf("mult\n");
+				StackPush(numberstack, a * b);
+				break;
+			case 3:
+				printf("sub\n");
+				StackPush(numberstack, a - b);
+				break;
+			case 4:
+				printf("div\n");
+				StackPush(numberstack, a / b);
+				break;
+		}
+	}
+	return StackPop(numberstack);
+}
+
 int main( int argc, char *argv[]){
 
 	stackT numberstack;
 	stackT operatorstack;
+
+	int result;
 
 	if (argv[1][0] == 'h'){
 		printhelp();
@@ -187,14 +220,12 @@ int main( int argc, char *argv[]){
 		StackInit(&operatorstack, count_operands(argv, argc));
 		fill_numberstack(&numberstack, argc, argv);
 		fill_operatorstack(&operatorstack, argc, argv);
-		for (int n = 0; n < numberstack.maxSize; n++){
-			printf("%d\n", StackPop(&numberstack));
-		}
-		for (int n = 0; n < operatorstack.maxSize; n++){
-			printf("%d\n", StackPop(&operatorstack));
-		}
+		result = prossesing(&numberstack, &operatorstack);
 		StackDestroy(&numberstack);
+		StackDestroy(&operatorstack);
 	}
+
+	printf("%d\n", result);
 
 	return 0;
 }
