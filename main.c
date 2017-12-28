@@ -193,11 +193,11 @@ int prossesing(stackT *numberstack, stackT *operatorstack){
 				break;
 			case 3:
 				printf("sub\n");
-				StackPush(numberstack, a - b);
+				StackPush(numberstack, b - a);
 				break;
 			case 4:
 				printf("div\n");
-				StackPush(numberstack, a / b);
+				StackPush(numberstack, b / a);
 				break;
 		}
 	}
