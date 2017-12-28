@@ -1,0 +1,10 @@
+//////////////////////////////////////////////////////////////////////
+//                         TODO List for rpn                        //
+//////////////////////////////////////////////////////////////////////
+
+Inplement proper reverse polish notation
+	-dynamic stack generation
+	-calculate left -> right
+
+Cleaning input
+	-fiter so only approprate input will be accepted
