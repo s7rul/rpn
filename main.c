@@ -112,11 +112,11 @@ int count_numbers(char *argv[], int argc){
 
 void printhelp(){
 	printf("############## Help for rpn ##################\n");
+	printf("Makes calculation according to reverse polish \n");
+	printf("notation.\n");
 	printf("\n");
-	printf("\n");
-	printf("\n");
-	printf("\n");
-	printf("\n");
+	printf("Each argument should be separetade by a single\n");
+	printf("[space].\n");
 	printf("\n");
 	return;
 }
