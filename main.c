@@ -50,7 +50,7 @@ int char_to_int(char charnumber){
 
 int is_operator(char charoperator){
 
-	if (charoperator == '+' || charoperator == '-' || charoperator == '*' || charoperator == '/'){
+	if (charoperator == '+' || charoperator == '-' || charoperator == 'x' || charoperator == '/'){
 		return 1;
 	}
 	return 0;
@@ -141,7 +141,7 @@ int prossesing(stackT *stack, char *argv[], int argc){
 				case '-':
 					StackPush(stack, b - a);
 					break;
-				case '*':
+				case 'x':
 					StackPush(stack, b * a);
 					break;
 				case '/':
