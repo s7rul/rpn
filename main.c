@@ -110,6 +110,13 @@ int count_numbers(char *argv[], int argc){
 	return count;
 }
 
+int readstdin(){
+	char input[10];
+	fgets(input, 10, stdin);
+	printf("%s", input);
+	return 0;
+}
+
 void printhelp(){
 	printf("############## Help for rpn ##################\n");
 	printf("Makes calculation according to reverse polish \n");
@@ -158,17 +165,34 @@ int main( int argc, char *argv[]){
 
 	stackT stack;
 
-	int result;
+	char help[] = "-h";
+	char sin[] = "-s";
 
-	if (argv[1][0] == 'h'){
-		printhelp();
+	int result = 0;
+
+	printf("innan if\n");
+
+	if (argc == 2){
+
+		printf("i första if\n");
+
+		if (argv[1] == help){
+			printf("i help if\n");
+			printhelp();
+		}
+
+		if (argv[1] == sin){
+			printf("i sin if\n");
+			readstdin();
+		}
 	}
 
-	else {
+	if (argc > 2){
 		StackInit(&stack, count_numbers(argv, argc));
 		result = prossesing(&stack, argv, argc);
-		StackDestroy(&stack);
 	}
+
+	StackDestroy(&stack);
 
 	printf("%d\n", result);
 
