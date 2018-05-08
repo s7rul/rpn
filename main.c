@@ -7,6 +7,16 @@
 #include "stack.h"
 #include "stringtoint.h"
 
+//funktions in stdinput.c
+int freeinputv(char **inputv, int inputc);
+int setstdinput(char **inputv);
+
+void printinputv(char **inputv, int inputc){
+	for (int n = 0; n < inputc; ++n){
+		printf("%s\n", inputv[n]);
+	}
+}
+
 int is_operator(char charoperator){
 
 	if (charoperator == '+' || charoperator == '-' || charoperator == 'x' || charoperator == '/'){
@@ -93,9 +103,12 @@ int main( int argc, char *argv[]){
 
 	char **inputv;
 	int inputc = 0;
+	int isstdinput = 0;
 
 	if (argc == 1){
-		fprintf(stderr, "No arguments\n");
+		inputc = setstdinput(inputv);
+		printinputv(inputv, inputc);
+		isstdinput = 1;
 		return 1;
 	}
 
@@ -110,10 +123,16 @@ int main( int argc, char *argv[]){
 	if (argc > 2){
 		inputv = argv;
 		inputc = argc;
+
+		printinputv(inputv, inputc);
 	}
 
 	StackInit(&stack, count_numbers(inputv, inputc));
 	result = prossesing(&stack, inputv, inputc);
+
+	if (isstdinput == 1){
+		freeinputv(inputv, inputc);
+	}
 
 	StackDestroy(&stack);
 
