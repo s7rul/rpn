@@ -2,51 +2,10 @@
  * This program takes input at runtime and does apropriet calculation
  * acording to reverce polish notation*/
 
-//functions declared in math.c
-int mypow(int x,int y);
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
-
-int char_to_int(char charnumber){
-
-	int result = 99;
-
-	switch (charnumber){
-		case '0':
-			result = 0;
-			break;
-		case '1':
-			result = 1;
-			break;
-		case '2':
-			result = 2;
-			break;
-		case '3':
-			result = 3;
-			break;
-		case '4':
-			result = 4;
-			break;
-		case '5':
-			result = 5;
-			break;
-		case '6':
-			result = 6;
-			break;
-		case '7':
-			result = 7;
-			break;
-		case '8':
-			result = 8;
-			break;
-		case '9':
-			result = 9;
-			break;
-	}
-	return result;
-}
+#include "stringtoint.h"
 
 int is_operator(char charoperator){
 
@@ -54,34 +13,6 @@ int is_operator(char charoperator){
 		return 1;
 	}
 	return 0;
-}
-
-int leght_of_number(char *charnumber){
-
-	char scanner = ' ';
-	int n = 0;
-
-	while (scanner != '\0'){
-		scanner = charnumber[n];
-		n++;
-	}
-
-	return n - 1;
-}
-
-int string_to_int(char *charnumber){
-	//input char and returns int
-	int n;
-	int y;
-	int output = 0;
-
-	n = leght_of_number(charnumber) - 1;
-
-	for (int pos = 0; pos <= n; pos++){
-		y = n - pos;
-		output += mypow(10, y) * char_to_int(charnumber[pos]); 
-	}
-	return output;
 }
 
 int is_number(char *input){//returns 1 for numbers and 0 for non numbers
@@ -98,23 +29,16 @@ int is_number(char *input){//returns 1 for numbers and 0 for non numbers
 	return 1;
 }
 
-int count_numbers(char *argv[], int argc){
+int count_numbers(char **inputv, int inputc){
 	//count the amount of numbers
 	
 	int count = 0;
 
-	for (int n = 1; n < argc; n++){
-		count += is_number(argv[n]);
+	for (int n = 1; n < inputc; n++){
+		count += is_number(inputv[n]);
 	}
 
 	return count;
-}
-
-int readstdin(){
-	char input[10];
-	fgets(input, 10, stdin);
-	printf("%s", input);
-	return 0;
 }
 
 void printhelp(){
@@ -165,32 +89,31 @@ int main( int argc, char *argv[]){
 
 	stackT stack;
 
-	char help[] = "-h";
-	char sin[] = "-s";
-
 	int result = 0;
 
-	printf("innan if\n");
+	char **inputv;
+	int inputc = 0;
+
+	if (argc == 1){
+		fprintf(stderr, "No arguments\n");
+		return 1;
+	}
 
 	if (argc == 2){
 
-		printf("i första if\n");
-
-		if (argv[1] == help){
-			printf("i help if\n");
+		if (argv[1][0] == 'h'){
 			printhelp();
-		}
-
-		if (argv[1] == sin){
-			printf("i sin if\n");
-			readstdin();
+			return 0;
 		}
 	}
 
 	if (argc > 2){
-		StackInit(&stack, count_numbers(argv, argc));
-		result = prossesing(&stack, argv, argc);
+		inputv = argv;
+		inputc = argc;
 	}
+
+	StackInit(&stack, count_numbers(inputv, inputc));
+	result = prossesing(&stack, inputv, inputc);
 
 	StackDestroy(&stack);
 
