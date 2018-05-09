@@ -6,14 +6,12 @@
 #include <stdlib.h>
 #include "stack.h"
 #include "stringtoint.h"
+#include "stdinput.h"
 
-//funktions in stdinput.c
-int freeinputv(char **inputv, int inputc);
-int setstdinput(char **inputv);
 
-void printinputv(char **inputv, int inputc){
-	for (int n = 0; n < inputc; ++n){
-		printf("%s\n", inputv[n]);
+void printinputv(INPUT *input){
+	for (int n = 0; n < input->c; ++n){
+		printf("%s\n", input->v[n]);
 	}
 }
 
@@ -101,15 +99,10 @@ int main( int argc, char *argv[]){
 
 	int result = 0;
 
-	char **inputv;
-	int inputc = 0;
-	int isstdinput = 0;
+	INPUT *standard;
 
 	if (argc == 1){
-		inputc = setstdinput(inputv);
-		printinputv(inputv, inputc);
-		isstdinput = 1;
-		return 1;
+		standard = setstdinput();
 	}
 
 	if (argc == 2){
@@ -121,22 +114,20 @@ int main( int argc, char *argv[]){
 	}
 
 	if (argc > 2){
-		inputv = argv;
-		inputc = argc;
+		standard = (INPUT *)malloc(sizeof(INPUT));
 
-		printinputv(inputv, inputc);
+		standard->v = argv;
+		standard->c = argc;
 	}
 
-	StackInit(&stack, count_numbers(inputv, inputc));
-	result = prossesing(&stack, inputv, inputc);
-
-	if (isstdinput == 1){
-		freeinputv(inputv, inputc);
-	}
-
-	StackDestroy(&stack);
+	StackInit(&stack, count_numbers(standard->v, standard->c));
+	result = prossesing(&stack, standard->v, standard->c);
 
 	printf("%d\n", result);
+
+	freeinputv(standard);
+
+	StackDestroy(&stack);
 
 	return 0;
 }
