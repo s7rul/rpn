@@ -96,10 +96,9 @@ int prossesing(stackT *stack, char *argv[], int argc){
 int main( int argc, char *argv[]){
 
 	stackT stack;
+	INPUT *standard;
 
 	int result = 0;
-
-	INPUT *standard;
 
 	if (argc == 1){
 		standard = setstdinput();
@@ -107,11 +106,17 @@ int main( int argc, char *argv[]){
 
 	if (argc == 2){
 
-		if (argv[1][0] == 'h'){
-			printhelp();
-			return 0;
-		} else {
-			standard = setstdinput();
+		switch(argv[1][0]){
+			case 'h':
+				printhelp();
+				break;
+			case 's':
+				standard = setstdinput();
+				break;
+			default:
+				standard = (INPUT *)malloc(sizeof(INPUT));
+				standard->v = argv;
+				standard->c = argc;
 		}
 	}
 
