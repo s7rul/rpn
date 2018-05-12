@@ -15,9 +15,9 @@ void printinputv(INPUT *input){
 	}
 }
 
-int is_operator(char charoperator){
+int is_operator(char *charoperator){
 
-	if (charoperator == '+' || charoperator == '-' || charoperator == 'x' || charoperator == '/'){
+	if ((charoperator[0] == '+' || charoperator[0] == '-' || charoperator[0] == 'x' || charoperator[0] == '/') && charoperator[1] == '\0'){
 		return 1;
 	}
 	return 0;
@@ -42,7 +42,7 @@ int count_numbers(char **inputv, int inputc){
 	
 	int count = 0;
 
-	for (int n = 1; n < inputc; n++){
+	for (int n = 0; n < inputc; n++){
 		count += is_number(inputv[n]);
 	}
 
@@ -69,7 +69,7 @@ int prossesing(stackT *stack, char *argv[], int argc){
 		if (is_number(argv[n])){
 			StackPush(stack, string_to_int(argv[n]));
 		}
-		if (is_operator(argv[n][0])){
+		if (is_operator(argv[n])){
 			a = StackPop(stack);
 			b = StackPop(stack);
 
@@ -110,6 +110,8 @@ int main( int argc, char *argv[]){
 		if (argv[1][0] == 'h'){
 			printhelp();
 			return 0;
+		} else {
+			standard = setstdinput();
 		}
 	}
 
@@ -125,7 +127,7 @@ int main( int argc, char *argv[]){
 
 	printf("%d\n", result);
 
-	freeinputv(standard);
+	free(standard);
 
 	StackDestroy(&stack);
 
