@@ -2,9 +2,17 @@
 //                         TODO List for rpn                        //
 //////////////////////////////////////////////////////////////////////
 
-Inplement proper reverse polish notation
-	-dynamic stack generation
-	-calculate left -> right
-
 Cleaning input
-	-fiter so only approprate input will be accepted
+	-filter so only approprate input will be accepted
+
+v0.7-beta
+	-optimizing buffer sizes
+
+v0.6-beta
+	-floatpoint calculation
+
+Beta:
+Inplement proper reverse polish notation [done]
+	-dynamic stack generation [done]
+	-calculate left -> right [done]
+
