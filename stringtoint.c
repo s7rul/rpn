@@ -14,90 +14,36 @@
 
 #include "stringtoint.h"
 
-int mypow(int x, int y){
-	int sum = 0;
-
-	if (y == 1){
-		sum = x;
-	}
-
-	else if (y == 0){
-		sum = 1;
-	}
-
-	else if (y > 1){
-		sum = x;
-		for (int n = 1; n < y; n++){
-			sum *= x;
+int is_number(char *string){
+	for (int i = 0; string[i] != '\0'; i++){
+		if (0 <= char_to_int(string[i]) <= 9){
+			continue;
+		}
+		else{
+			return 0;
 		}
 	}
-
-	return sum;
+	return 1;
 }
 
-int char_to_int(char charnumber){
+int string_to_int(char *string){
+	int ret = 0;
+	int x = 0;
+	char c = string[0];
 
-	int result = 99;
-
-	switch (charnumber){
-		case '0':
-			result = 0;
-			break;
-		case '1':
-			result = 1;
-			break;
-		case '2':
-			result = 2;
-			break;
-		case '3':
-			result = 3;
-			break;
-		case '4':
-			result = 4;
-			break;
-		case '5':
-			result = 5;
-			break;
-		case '6':
-			result = 6;
-			break;
-		case '7':
-			result = 7;
-			break;
-		case '8':
-			result = 8;
-			break;
-		case '9':
-			result = 9;
-			break;
+	if (is_number(string)){
+		for (int n = 0; 1 ; n++){
+			c = string[n];
+			if (c == '\0'){
+				break;
+			}
+			printf("c före %d\n", c);
+			x = c - '0';
+			printf("x %d\n", x);
+			ret = ret * 10 + x;
+			printf("ret: %d\n", ret);
+		}
+		return ret;
 	}
-	return result;
-}
-
-int leght_of_number(char *charnumber){
-
-	char scanner = ' ';
-	int n = 0;
-
-	while (scanner != '\0'){
-		scanner = charnumber[n];
-		n++;
-	}
-
-	return n - 1;
-}
-
-int string_to_int(char *charnumber){
-	//input char and returns int
-	int n;
-	int y;
-	int output = 0;
-
-	n = leght_of_number(charnumber) - 1;
-
-	for (int pos = 0; pos <= n; pos++){
-		y = n - pos;
-		output += mypow(10, y) * char_to_int(charnumber[pos]); 
-	}
-	return output;
+	return -1;
 }

@@ -28,7 +28,7 @@ int is_number(char *input){//returns 1 for numbers and 0 for non numbers
 	int n = 0;
 
 	while (input[n] != '\0'){
-		if (char_to_int(input[n]) == 99){
+		if (char_to_int(input[n]) == -1){
 			return 0;
 		}
 		n++;
