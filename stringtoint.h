@@ -17,4 +17,4 @@
 int string_to_int(char *charnumber);
 
 // Funktion to translate char to int
-int char_to_int(char charnumber);
+int is_number(char *charnumber);

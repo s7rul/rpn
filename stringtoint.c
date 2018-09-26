@@ -14,34 +14,31 @@
 
 #include "stringtoint.h"
 
-int is_number(char *string){
-	for (int i = 0; string[i] != '\0'; i++){
-		if (0 <= char_to_int(string[i]) <= 9){
+int is_number(char *charnumber){
+	for (int i = 0; charnumber[i] != '\0'; i++){
+		if (('0' <= charnumber[i] && charnumber[i] <= '9') || (charnumber[0] == '\0')){
 			continue;
 		}
-		else{
+		else {
 			return 0;
 		}
 	}
 	return 1;
 }
 
-int string_to_int(char *string){
+int string_to_int(char *charnumber){
 	int ret = 0;
 	int x = 0;
-	char c = string[0];
+	char c = charnumber[0];
 
-	if (is_number(string)){
+	if (is_number(charnumber)){
 		for (int n = 0; 1 ; n++){
-			c = string[n];
+			c = charnumber[n];
 			if (c == '\0'){
 				break;
 			}
-			printf("c före %d\n", c);
 			x = c - '0';
-			printf("x %d\n", x);
 			ret = ret * 10 + x;
-			printf("ret: %d\n", ret);
 		}
 		return ret;
 	}
